@@ -16,9 +16,9 @@ class CategoricalEncoding:
         self.features = features
         self.enc_type = encoding_type
         self.handle_na = handle_na
-        self.label_encoders = dict()
-        self.binary_encoders = dict()
-        self.ordinal_encoders = dict()
+        self.label_encoders = {}
+        self.binary_encoders = {}
+        self.ordinal_encoders = {}
         self.ohe = None
 
         if self.handle_na:
@@ -57,19 +57,6 @@ class CategoricalEncoding:
             for c in self.cat_feats:
                 dataframe.loc[:,c] = dataframe.loc[:, c].astype(str).fillna("-99999")
         return dataframe
-
-        if self.enc_type == "label":
-            for c, lbl in self.lable_encoders.items():
-                dataframe.loc[:, c] = lbl.transform(dataframe[c].values)
-            return dataframe
-        
-        elif self.enc_type == "ordinal":
-            for c, oe in self.ordinal_encoders.items():
-                dataframe.loc[:, c] = oe.transform(dataframe.loc[:, c].values)
-            return dataframe
-        
-        else:
-            raise Exception("Encoding type not understood")
         
 
     

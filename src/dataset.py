@@ -147,9 +147,11 @@ col_to_drop(X_train, drop_columns_list)
 # functions to create  dummmy variables
 
 def dummy_creation(df, columns_list):
-    df_dummies = []
-    for col in columns_list:
-        df_dummies.append(pd.get_dummies(df[col], prefix = col, prefix_sep=":"))
+    df_dummies = [
+        pd.get_dummies(df[col], prefix=col, prefix_sep=":")
+        for col in columns_list
+    ]
+
     df_dummies = pd.concat(df_dummies, axis=1)
     df = pd.concat([df, df_dummies], axis =1)
     return df
